@@ -22,7 +22,7 @@ def app():
              " general transportation studies"
              " For the accuracy of the results to be obtained, it is encouraged to use a comprehensive set of vehicle speed data")
 
-    speed_dataframe = pd.read_csv("D:\OLDDATA\DPMT LAP\PCU\RG Data\Athurugiriya\Speed_data_format.csv")
+    speed_dataframe = pd.read_csv("Speed_data_format.csv")
 
     st.dataframe(speed_dataframe.head())
 
@@ -35,7 +35,7 @@ def app():
              "be common to the available general vehicle models for the considered road section. Values should be given "
              "in `square meters`. Ensure that the areas are given to all the considered vehicle types")
 
-    speed_dataframe = pd.read_csv("D:\OLDDATA\DPMT LAP\PCU\Areas\Areas_PCU.csv")
+    speed_dataframe = pd.read_csv("Areas_PCU.csv")
 
     st.dataframe(speed_dataframe.head())
 
