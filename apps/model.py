@@ -9,7 +9,6 @@ def pcu_calculation(hourly_vehicle_speeds, car_speeds, area_values):
         vehicle = row['Vehicle']
         hour = row['HOUR']
         car_speed = car_speeds[car_speeds['HOUR'] == hour]['Speed']
-        vehicle_area = area_values.loc[vehicle]
 
         pcu_value = (car_speed / row['Speed']) * (area_values.loc[vehicle, 'Area'] / area_values.loc['Car', 'Area'])
         hourly_vehicle_speeds.loc[idx, 'PCU'] = pcu_value.values[0]
@@ -22,6 +21,8 @@ def pcu_calculation(hourly_vehicle_speeds, car_speeds, area_values):
     pcu_table.columns = ['Vehicle type', 'PCU Value', 'Standard Error']
 
     return hourly_pcu_values, pcu_table
+
+
 
 @st.cache
 def convert_df(df):
@@ -68,17 +69,28 @@ def app():
                     hourly_vehicle_speeds = hourly_vehicle_speeds.reset_index()
                     car_speeds = hourly_vehicle_speeds[hourly_vehicle_speeds['Vehicle'] == 'Car']
 
-                    hourly_pcu_values, pcu_table = pcu_calculation(hourly_vehicle_speeds, car_speeds, area_values)
+                    try:
+                        hourly_pcu_values, pcu_table = pcu_calculation(hourly_vehicle_speeds, car_speeds, area_values)
 
-                    st.subheader('Calculated PCU values')
+                        st.subheader('Calculated PCU values')
 
-                    # streamlit output the PCU results as a table.
-                    st.dataframe(pcu_table)
+                        # streamlit output the PCU results as a table.
+                        st.dataframe(pcu_table)
 
-                    # download option
-                    csv = convert_df(pcu_table)
-                    st.download_button(label="Download PCU values", data=csv, file_name='pcu_values.csv',
-                                       mime='text/csv')
+                        # download option
+                        csv = convert_df(pcu_table)
+                        st.download_button(label="Download PCU values", data=csv, file_name='pcu_values.csv',
+                                           mime='text/csv')
+                    except IndexError:
+                        st.write('PCU values cannot be calculated due to an issue of the the input data. Please adhere to the given data format')
+                        st.write('The below error code may provide you some insight')
+                        st.text("Speed values of Cars have not been mentioned for some hours")
+
+                    except BaseException as err:
+
+                        st.write('PCU values cannot be calculated due to an issue of the the input data. Please adhere to the given data format')
+                        st.write('The below error code may provide you some insight')
+                        st.text(f"Unexpected {err=}, {type(err)=}")
 
                 except Exception as e:
                     print(e)
