@@ -86,11 +86,11 @@ def app():
                         st.write('The below error code may provide you some insight')
                         st.text("Speed values of Cars have not been mentioned for some hours")
 
-                    except BaseException as err:
+                    except BaseException:
 
                         st.write('PCU values cannot be calculated due to an issue of the the input data. Please adhere to the given data format')
-                        st.write('The below error code may provide you some insight')
-                        st.text(f"Unexpected {err=}, {type(err)=}")
+                        # st.write('The below error code may provide you some insight')
+
 
                 except Exception as e:
                     print(e)
