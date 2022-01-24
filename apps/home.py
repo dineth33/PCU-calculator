@@ -16,9 +16,9 @@ def app():
     """)
 
     st.markdown("""
-    * 2. Dhananjaya, D. D., Fernando, W. W. P. M., Kumarage, A. S., & Sivakumar, T. Passenger Car
-    Units for Different Midblock Sections in Sri Lanka using Chandra’s Method.
-    ENGINEER: Journal of the Institution of Engineers, Sri Lanka*
+    * 2. Dhananjaya, D. D., Fernando, W. W. P. M. & Sivakumar, T. Passenger Car
+    Units for different midblock sections in Sri Lanka under mixed traffic conditions.
+    ENGINEER: Journal of the Institution of Engineers, Sri Lanka (under review)*
     """)
 
     st.write('**If you use this application, please be kind enough to cite these papers in your work**')
